@@ -1,7 +1,7 @@
 {
-  "name": "notion-eq",
+  "name": "@suzu-sys/notion-eq",
   "version": "1.0.0",
-  "description": "",
+  "description": "An equation numbering tool for Notion",
   "main": "dist/index.js",
   "bin": {
     "notion-eq": "./dist/index.js"
@@ -12,8 +12,10 @@
     "build": "npx tsc"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Suzuki Josei",
+  "license": "MIT",
+  "repository": "https://github.com/SuzuSys/notion-eq",
+  "homepage": "https://github.com/SuzuSys/notion-eq#readme",
   "type": "commonjs",
   "devDependencies": {
     "@types/node": "^22.14.1",
