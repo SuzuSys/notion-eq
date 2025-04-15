@@ -28,10 +28,18 @@ const MULTIDB_ID = "MULTIPLE_TAGS_DB_ID";
 const PARAGRAPH_LINK = "Paragraph Link";
 const INDEX = "Index";
 
-const EQ_PREFIX = "Eq. (";
-const EQ_SUFFIEX = ")";
+const EQ_PREFIX = "EQ_PREFIX";
+const EQ_SUFFIX = "EQ_SUFFIX";
 
 (async () => {
+  let EqPrefix = process.env[EQ_PREFIX];
+  if (!EqPrefix) {
+    EqPrefix = "Eq. (";
+  }
+  let EqSuffix = process.env[EQ_SUFFIX];
+  if (!EqSuffix) {
+    EqSuffix = ")";
+  }
   const token = process.env[NOTION_TOKEN];
   if (!token) {
     throw Error(`token: ${NOTION_TOKEN} is undefined.`);
@@ -135,39 +143,39 @@ const EQ_SUFFIEX = ")";
                 const pluses = tagIndices.get(block.id.replaceAll("-", ""));
                 if (pluses === undefined) {
                   throw Error(
-                    `The block referencing ${EQ_PREFIX}${
+                    `The block referencing ${EqPrefix}${
                       tagObj.begin
-                    }${EQ_SUFFIEX} - ${EQ_PREFIX}${
+                    }${EqSuffix} - ${EqPrefix}${
                       tagObj.begin + tagObj.numberOfTags - 1
-                    }${EQ_SUFFIEX} has not been registered in the multiple tags db.`
+                    }${EqSuffix} has not been registered in the multiple tags db.`
                   );
                 }
                 if (pluses.length <= multiIndex) {
                   throw Error(
-                    `The number of registered indices related to ${EQ_PREFIX}${
+                    `The number of registered indices related to ${EqPrefix}${
                       tagObj.begin
-                    }${EQ_SUFFIEX} - ${EQ_PREFIX}${
+                    }${EqSuffix} - ${EqPrefix}${
                       tagObj.begin + tagObj.numberOfTags - 1
-                    }${EQ_SUFFIEX} is insufficient.`
+                    }${EqSuffix} is insufficient.`
                   );
                 }
                 const plus = pluses[multiIndex];
                 if (Number.isNaN(plus)) {
                   throw Error(
-                    `Registered indices related to ${EQ_PREFIX}${
+                    `Registered indices related to ${EqPrefix}${
                       tagObj.begin
-                    }${EQ_SUFFIEX} - ${EQ_PREFIX}${
+                    }${EqSuffix} - ${EqPrefix}${
                       tagObj.begin + tagObj.numberOfTags - 1
-                    }${EQ_SUFFIEX} is invalid. (NaN detected.)`
+                    }${EqSuffix} is invalid. (NaN detected.)`
                   );
                 }
                 if (plus >= tagObj.numberOfTags) {
                   throw Error(
-                    `One of registered indices related to ${EQ_PREFIX}${
+                    `One of registered indices related to ${EqPrefix}${
                       tagObj.begin
-                    }${EQ_SUFFIEX} - ${EQ_PREFIX}${
+                    }${EqSuffix} - ${EqPrefix}${
                       tagObj.begin + tagObj.numberOfTags - 1
-                    }${EQ_SUFFIEX} is out of range. (must <${
+                    }${EqSuffix} is out of range. (must <${
                       tagObj.numberOfTags
                     })`
                   );
@@ -175,13 +183,13 @@ const EQ_SUFFIEX = ")";
                 eqNumber = tagObj.begin + plus;
                 multiIndex++;
               }
-              const correctLink = `${EQ_PREFIX}${eqNumber}${EQ_SUFFIEX}`;
+              const correctLink = `${EqPrefix}${eqNumber}${EqSuffix}`;
               if (
                 text.text.content !== correctLink ||
                 text.plain_text !== correctLink
               ) {
                 text.text.content =
-                  text.plain_text = `${EQ_PREFIX}${eqNumber}${EQ_SUFFIEX}`;
+                  text.plain_text = `${EqPrefix}${eqNumber}${EqSuffix}`;
                 updateFlag = true;
               }
             }
