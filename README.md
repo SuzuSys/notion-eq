@@ -79,8 +79,8 @@ notion-eq
 | `NOTION_TOKEN`         | Integration token                                                                                            |
 | `PAGE_ID`              | The ID of the page.                                                                                          |
 | `MULTIPLE_TAGS_DB_ID`  | The ID of the database containing the block that references a equation block with multiple equation numbers. |
-| `EQ_PREFIX` (Optional) | Prefix of a equation number.                                                                                 |
-| `EQ_SUFFIX` (Optional) | Suffix of a equation number.                                                                                 |
+| `EQ_PREFIX` (Optional) | Prefix of a equation number. Default: `EQ. (`                                                                |
+| `EQ_SUFFIX` (Optional) | Suffix of a equation number. Default: `)`                                                                    |
 
 Page and database IDs is 32-character alphanumeric strings. They can be found at the end of a Notion page or database URL.
 
@@ -95,3 +95,7 @@ Page and database IDs is 32-character alphanumeric strings. They can be found at
 | ---------------- | ----- | ----------------------------------------------------- | ---------------------------------------------------------------- |
 | `Paragraph Link` | Title | Link to the text block                                | [Link to the block](https://github.com/SuzuSys/notion-eq#readme) |
 | `Index`          | Text  | List of the index of the equation number in the block | 1,0,1                                                            |
+
+- Length of `record["Index"]`: The number of references to the equation block with multiple equation numbers.
+- Index of `record["Index"]`: The position of the references.
+- Value of `record["Index"]`: The position of equation numbers.
