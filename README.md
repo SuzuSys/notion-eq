@@ -89,7 +89,7 @@ notion-eq
 
 Page and database IDs are 32-character alphanumeric strings, found at the end of a Notion page or database URL.
 
-| Type     | URL and ID part                                                                                     |
+| Type     | Example URL and ID                                                                                  |
 | -------- | --------------------------------------------------------------------------------------------------- |
 | Page     | h<!---->ttps://w<!---->ww.notion.so/Sample-Page-<ins>9a3f0c7d5b8e1f24c6d07b1e4f3a2d8c</ins>?pvs=... |
 | Database | h<!---->ttps://w<!---->ww.notion.so/<ins>0f9b3d7ca1e45f28bdc07e2f6a3c9d14</ins>?v=...               |
