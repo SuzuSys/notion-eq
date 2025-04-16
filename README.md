@@ -2,45 +2,48 @@
 
 **An equation numbering tool for Notion.**
 
+- Automatically adds equation numbers to LaTeX blocks in Notion documents.
+- Automatically replaces equation references with corresponding numbers (like LaTex's `\eqref`).
+
 ## Getting Started
 
-### Prepare Notion environment
+### Prepare Your Notion Environment
 
-1. Get a integration token.
+1. Obtain a integration token.
 
-1. Prepare a target page and get the page id.
+1. Prepare the target Notion page and gets its Page ID.
 
-1. Prepare a Multiple-Tags database and get the database id. The database must has [validate properties](#properties-of-multiple-tags-database).
+1. Set up the [AlignEqRefs database](#aligneqrefs-database) and get its Database ID.
 
 ### Installation
 
-1. Install the package.
+1. Install the package:
 
    ```shell
    npm install @suzu-sys/notion-eq
    ```
 
-1. Create a `.env` file to the root directory, and write a token and IDs.
+1. Create a `.env` file and add the following:
 
    ```dotenv
    NOTION_TOKEN=*********************
    PAGE_ID=*********************
-   MULTIPLE_TAGS_DB_ID=*********************
+   ALIGN_EQ_REFS_DB_ID=*********************
    ```
 
 ### Usage
 
-#### 1. Equations
+#### 1. Add Equation Numbers
 
-If you want to put a equation number to a block equation, use `\tag{<\d*>}` where `<\d*>` must be replaced to `\d*`.
+Use `\tag{}` or `\tag{<digits>}` in your LaTeX block to mark equations for numbering. Any existing number will be replaced with the correct number automatically.
 
-- Single equation number
+- Single numbered equation:
 
   ```tex
   x^2 + 2x + 1 \tag{}
   ```
 
-- Multiple equation numbers
+- Multiple numbered equations:
 
   ```tex
   \begin{align}
@@ -49,19 +52,19 @@ If you want to put a equation number to a block equation, use `\tag{<\d*>}` wher
   \end{align}
   ```
 
-#### 2. Reference equations
+#### 2. Reference Equations
 
-In a text block, when you want to put a reference to the equation block, put the url of the equation block as a link.
+To reference a numbered equation, link to the equation block from a text block. The link title does not affect numbering.
 
 ![ref-single-tag](./readme_images/ref-single-tags.png)
 
-If you put a reference to the equation block with multiple equation numbers, register the text block in the Multiple-Tags Database.
+If the equation block contains multiple numbered equations, register the referencing text block in the AlignEqRefs database.
 
 ![ref-multiple-tag](./readme_images//ref-multiple-tags.png)
 
-![Multiple-Tags database](./readme_images/multiple-tags.png)
+![AlignEqRefs database](./readme_images/multiple-tags.png)
 
-#### 3. Execute the tool
+#### 3. Run the Tool
 
 ```shell
 notion-eq
@@ -72,30 +75,32 @@ notion-eq
 - After
   ![after](./readme_images/after.png)
 
-## Parameters of .env
+## .env Parameters
 
-| Parameter              | Description                                                                                                  |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `NOTION_TOKEN`         | Integration token                                                                                            |
-| `PAGE_ID`              | The ID of the page.                                                                                          |
-| `MULTIPLE_TAGS_DB_ID`  | The ID of the database containing the block that references a equation block with multiple equation numbers. |
-| `EQ_PREFIX` (Optional) | Prefix of a equation number. Default: `EQ. (`                                                                |
-| `EQ_SUFFIX` (Optional) | Suffix of a equation number. Default: `)`                                                                    |
+| Parameter              | Description                                            |
+| ---------------------- | ------------------------------------------------------ |
+| `NOTION_TOKEN`         | Your Notion integration token                          |
+| `PAGE_ID`              | The ID of the Notion page to process.                  |
+| `ALIGN_EQ_REFS_DB_ID`  | The ID of the AlignEqRefs database.                    |
+| `EQ_PREFIX` (Optional) | Prefix of equation number in text blocks. Default: `(` |
+| `EQ_SUFFIX` (Optional) | Suffix of equation number in text blocks. Default: `)` |
 
-Page and database IDs is 32-character alphanumeric strings. They can be found at the end of a Notion page or database URL.
+> [!NOTE] > `EQ_PREFIX` and `EQ_SUFFIX` are only applied to equation numbers displayed in text blocks, not inside LaTeX blocks.
 
-| Type     | URL and ID part                                                                            |
-| -------- | ------------------------------------------------------------------------------------------ |
-| Page     | h<!---->ttps://w<!---->ww.notion.so/Sample-Page-`9a3f0c7d5b8e1f24c6d07b1e4f3a2d8c`?pvs=... |
-| Database | h<!---->ttps://w<!---->ww.notion.so/`0f9b3d7ca1e45f28bdc07e2f6a3c9d14`?v=...               |
+Page and database IDs are 32-character alphanumeric strings, found at the end of a Notion page or database URL.
 
-## Properties of the Multiple-Tags database
+| Type     | URL and ID part                                                                                     |
+| -------- | --------------------------------------------------------------------------------------------------- |
+| Page     | h<!---->ttps://w<!---->ww.notion.so/Sample-Page-<ins>9a3f0c7d5b8e1f24c6d07b1e4f3a2d8c</ins>?pvs=... |
+| Database | h<!---->ttps://w<!---->ww.notion.so/<ins>0f9b3d7ca1e45f28bdc07e2f6a3c9d14</ins>?v=...               |
 
-| Property         | Type  | Format                                                | Example Value                                                    |
-| ---------------- | ----- | ----------------------------------------------------- | ---------------------------------------------------------------- |
-| `Paragraph Link` | Title | Link to the text block                                | [Link to the block](https://github.com/SuzuSys/notion-eq#readme) |
-| `Index`          | Text  | List of the index of the equation number in the block | 1,0,1                                                            |
+## AlignEqRefs Database
 
-- Length of `record["Index"]`: The number of references to the equation block with multiple equation numbers.
-- Index of `record["Index"]`: The position of the references.
-- Value of `record["Index"]`: The position of equation numbers.
+The AlignEqRefs database is used to handle references to individual equations within a multi-equation block.
+
+| Property         | Type  | Format                                                                    | Example Value                                       |
+| ---------------- | ----- | ------------------------------------------------------------------------- | --------------------------------------------------- |
+| `Paragraph Link` | Title | Link to the referencing text block. Link title does not affect numbering. | [Link](https://github.com/SuzuSys/notion-eq#readme) |
+| `Index`          | Text  | Comma-separated list of `\tag{}` indices (0-based) in the equation block  | 1,0,1                                               |
+
+![AlignEqRefs database](./readme_images/multiple-tags.png)

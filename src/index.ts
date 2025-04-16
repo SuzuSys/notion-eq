@@ -23,7 +23,7 @@ type BlockId = string;
 
 const NOTION_TOKEN = "NOTION_TOKEN";
 const PAGE_ID = "PAGE_ID";
-const MULTIDB_ID = "MULTIPLE_TAGS_DB_ID";
+const ALIGN_EQ_REFS_DB_ID = "ALIGN_EQ_REFS_DB_ID";
 
 const PARAGRAPH_LINK = "Paragraph Link";
 const INDEX = "Index";
@@ -34,7 +34,7 @@ const EQ_SUFFIX = "EQ_SUFFIX";
 (async () => {
   let EqPrefix = process.env[EQ_PREFIX];
   if (!EqPrefix) {
-    EqPrefix = "Eq. (";
+    EqPrefix = "(";
   }
   let EqSuffix = process.env[EQ_SUFFIX];
   if (!EqSuffix) {
@@ -48,9 +48,9 @@ const EQ_SUFFIX = "EQ_SUFFIX";
     auth: token,
   });
 
-  const multiDbId = process.env[MULTIDB_ID];
+  const multiDbId = process.env[ALIGN_EQ_REFS_DB_ID];
   if (!multiDbId) {
-    throw Error(`token: ${MULTIDB_ID} is undefined.`);
+    throw Error(`token: ${ALIGN_EQ_REFS_DB_ID} is undefined.`);
   }
 
   const queried = await collectPaginatedAPI(client.databases.query, {
