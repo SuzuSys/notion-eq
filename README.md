@@ -56,12 +56,12 @@ Use `\tag{}` or `\tag{<digits>}` in your LaTeX block to mark equations for numbe
 
 To reference a numbered equation, link to the equation block from a text block. The link title does not affect numbering.
 
-<p align="center"><img src="./readme_images/ref-single-tags.png" alt="" width="30%" style="min-width: 300"></p>
+<p align="center"><img src="./readme_images/ref-single-tags.png" alt="" width="40%" style="min-width: 500"></p>
 
 If the equation block contains multiple numbered equations, register the referencing text block in the AlignEqRefs database.
 
-<p align="center"><img src="./readme_images/ref-multiple-tags.png" alt="" width="30%" style="min-width: 300"></p>
-<p align="center"><img src="./readme_images/multiple-tags.png" alt="" width="30%" style="min-width: 300"></p>
+<p align="center"><img src="./readme_images/ref-multiple-tags.png" alt="" width="50%" style="min-width: 500"></p>
+<p align="center"><img src="./readme_images/multiple-tags.png" alt="" width="50%" style="min-width: 500"></p>
 
 #### 3. Run the Tool
 
@@ -69,7 +69,10 @@ If the equation block contains multiple numbered equations, register the referen
 notion-eq
 ```
 
-<p align="center"><img src="./readme_images/before.png" alt="" width="50%" style="min-width: 300"><img src="./readme_images/after.png" alt="" width="50%" style="min-width: 300"></p>
+- Before
+  <p align="center"><img src="./readme_images/before.png" alt="" width="50%" style="min-width: 500"><img src="./readme_images/after.png" alt="" width="50%" style="min-width: 300"></p>
+- After
+  <p align="center"><img src="./readme_images/after.png" alt="" width="50%" style="min-width: 500"><img src="./readme_images/after.png" alt="" width="50%" style="min-width: 300"></p>
 
 ## .env Parameters
 
