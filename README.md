@@ -56,13 +56,12 @@ Use `\tag{}` or `\tag{<digits>}` in your LaTeX block to mark equations for numbe
 
 To reference a numbered equation, link to the equation block from a text block. The link title does not affect numbering.
 
-![ref-single-tag](./readme_images/ref-single-tags.png)
+<p align="center"><img src="./readme_images/ref-single-tags.png" alt="" width="30%" style="min-width: 300"></p>
 
 If the equation block contains multiple numbered equations, register the referencing text block in the AlignEqRefs database.
 
-![ref-multiple-tag](./readme_images//ref-multiple-tags.png)
-
-![AlignEqRefs database](./readme_images/multiple-tags.png)
+<p align="center"><img src="./readme_images/ref-multiple-tags.png" alt="" width="30%" style="min-width: 300"></p>
+<p align="center"><img src="./readme_images/multiple-tags.png" alt="" width="30%" style="min-width: 300"></p>
 
 #### 3. Run the Tool
 
@@ -70,10 +69,7 @@ If the equation block contains multiple numbered equations, register the referen
 notion-eq
 ```
 
-- Before
-  ![before](./readme_images/before.png)
-- After
-  ![after](./readme_images/after.png)
+<p align="center"><img src="./readme_images/before.png" alt="" width="50%" style="min-width: 300"><img src="./readme_images/after.png" alt="" width="50%" style="min-width: 300"></p>
 
 ## .env Parameters
 
@@ -85,7 +81,8 @@ notion-eq
 | `EQ_PREFIX` (Optional) | Prefix of equation number in text blocks. Default: `(` |
 | `EQ_SUFFIX` (Optional) | Suffix of equation number in text blocks. Default: `)` |
 
-> [!NOTE] > `EQ_PREFIX` and `EQ_SUFFIX` are only applied to equation numbers displayed in text blocks, not inside LaTeX blocks.
+> [!NOTE]  
+> `EQ_PREFIX` and `EQ_SUFFIX` are only applied to equation numbers displayed in text blocks, not inside LaTeX blocks.
 
 Page and database IDs are 32-character alphanumeric strings, found at the end of a Notion page or database URL.
 
@@ -102,5 +99,3 @@ The AlignEqRefs database is used to handle references to individual equations wi
 | ---------------- | ----- | ------------------------------------------------------------------------- | --------------------------------------------------- |
 | `Paragraph Link` | Title | Link to the referencing text block. Link title does not affect numbering. | [Link](https://github.com/SuzuSys/notion-eq#readme) |
 | `Index`          | Text  | Comma-separated list of `\tag{}` indices (0-based) in the equation block  | 1,0,1                                               |
-
-![AlignEqRefs database](./readme_images/multiple-tags.png)
