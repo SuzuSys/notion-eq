@@ -3,15 +3,15 @@
 **An equation numbering tool for Notion.**
 
 - Automatically adds equation numbers to LaTeX blocks in Notion documents.
-- Automatically replaces equation references with corresponding numbers (like LaTex's `\eqref`).
+- Automatically replaces equation references with corresponding numbers (similar to LaTeX's `\eqref`).
 
 ## Getting Started
 
 ### Prepare Your Notion Environment
 
-1. Obtain a integration token.
+1. Obtain an integration token.
 
-1. Prepare the target Notion page and gets its Page ID.
+1. Identify the Notion page you want to process and get its Page ID.
 
 1. Set up the [AlignEqRefs database](#aligneqrefs-database) and get its Database ID.
 
@@ -35,15 +35,15 @@
 
 #### 1. Add Equation Numbers
 
-Use `\tag{}` or `\tag{<digits>}` in your LaTeX block to mark equations for numbering. Any existing number will be replaced with the correct number automatically.
+Use `\tag{}` or `\tag{<digits>}` in your LaTeX blocks to mark equations for numbering. Any digits you enter will be overwritten with the correct number automatically.
 
-- Single numbered equation:
+- Equation block with a single `\tag{}`:
 
   ```tex
   x^2 + 2x + 1 \tag{}
   ```
 
-- Multiple numbered equations:
+- Equation block with multiple `\tag{}`s:
 
   ```tex
   \begin{align}
@@ -54,11 +54,11 @@ Use `\tag{}` or `\tag{<digits>}` in your LaTeX block to mark equations for numbe
 
 #### 2. Reference Equations
 
-To reference a numbered equation, link to the equation block from a text block. The link title does not affect numbering.
+To reference a numbered equation, insert a link to the equation block from a text block. The link title does not affect numbering.
 
 <p align="center"><img src="./readme_images/ref-single-tags.png" alt="" width="40%" style="min-width: 500"></p>
 
-If the equation block contains multiple numbered equations, register the referencing text block in the AlignEqRefs database.
+If the equation block contains multiple `\tag{}`s, register the referencing text block in the AlignEqRefs database.
 
 <p align="center"><img src="./readme_images/ref-multiple-tags.png" alt="" width="80%" style="min-width: 500"></p>
 <p align="center"><img src="./readme_images/multiple-tags.png" alt="" width="80%" style="min-width: 500"></p>
@@ -85,7 +85,7 @@ notion-eq
 | `EQ_SUFFIX` (Optional) | Suffix of equation number in text blocks. Default: `)` |
 
 > [!NOTE]  
-> `EQ_PREFIX` and `EQ_SUFFIX` are only applied to equation numbers displayed in text blocks, not inside LaTeX blocks.
+> `EQ_PREFIX` and `EQ_SUFFIX` apply only to how equation numbers appear in text blocks, not in LaTeX blocks.
 
 Page and database IDs are 32-character alphanumeric strings, found at the end of a Notion page or database URL.
 
@@ -96,9 +96,18 @@ Page and database IDs are 32-character alphanumeric strings, found at the end of
 
 ## AlignEqRefs Database
 
-The AlignEqRefs database is used to handle references to individual equations within a multi-equation block.
+The AlignEqRefs database is used to handle references to individual equations within an equation block that contains multiple `\tag{}`s.
 
-| Property         | Type  | Format                                                                    | Example Value                                       |
-| ---------------- | ----- | ------------------------------------------------------------------------- | --------------------------------------------------- |
-| `Paragraph Link` | Title | Link to the referencing text block. Link title does not affect numbering. | [Link](https://github.com/SuzuSys/notion-eq#readme) |
-| `Index`          | Text  | Comma-separated list of `\tag{}` indices (0-based) in the equation block  | 1,0,1                                               |
+| Property         | Type  | Format                                                                                                                                                                                                               | Example Value                                       |
+| ---------------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| `Paragraph Link` | Title | Link to the referencing text block. Link title does not affect numbering.                                                                                                                                            | [Link](https://github.com/SuzuSys/notion-eq#readme) |
+| `Index`          | Text  | Comma-separated list of 0-based `\tag{}` indices from the equation block. Only links to blocks with multiple `\tag{}`s are counted. Each index corresponds to the order of such links in the referencing text block. | 1,0,1                                               |
+
+> [!NOTE]  
+> **Example**  
+> [ref(U,0)](#2-reference-equations) and [ref(U,1)](#2-reference-equations) refer to individual equations within a block that has multiple `\tag{}`s.  
+> [ref(x^2)](#2-reference-equations) refer to a block with only a single `\tag{}`.  
+> If a text block contains:  
+> "... [ref(U,0)](#2-reference-equations) ... [ref(x^2)](#2-reference-equations) ... [ref(U,1)](#2-reference-equations) ..."  
+> then the `Index` field should be **"0,1"**.  
+> Links to single-tag blocks (like [ref(x^2)](#2-reference-equations)) are ignored when determining the order.
