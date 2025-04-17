@@ -17,13 +17,13 @@
 
 ### Installation
 
-1. Install the package:
+1. Install the CLI:
 
    ```shell
-   npm install @suzu-sys/notion-eq
+   npm i -g @suzu-sys/notion-eq
    ```
 
-1. Create a `.env` file and add the following:
+1. Create a `.env` file in the current directory and add the following:
 
    ```dotenv
    NOTION_TOKEN=*********************
