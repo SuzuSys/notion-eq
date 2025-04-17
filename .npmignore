@@ -1,6 +1,7 @@
 # NPMIGNORE FIELD ----------------------------------------------
 
 readme_images
+.gitignore/
 
 # GITIGNORE FIELD ----------------------------------------------
 
