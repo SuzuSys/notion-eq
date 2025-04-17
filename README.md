@@ -15,21 +15,22 @@
 
 1. Set up the [AlignEqRefs database](#aligneqrefs-database) and get its Database ID.
 
-### Installation
+### Setup
 
-1. Install the CLI:
+Create a `.env` file in the current directory and add the following:
 
-   ```shell
-   npm i -g @suzu-sys/notion-eq
-   ```
+```dotenv
+NOTION_TOKEN=*********************
+PAGE_ID=*********************
+ALIGN_EQ_REFS_DB_ID=*********************
+```
 
-1. Create a `.env` file in the current directory and add the following:
+### Installation (Optional)
 
-   ```dotenv
-   NOTION_TOKEN=*********************
-   PAGE_ID=*********************
-   ALIGN_EQ_REFS_DB_ID=*********************
-   ```
+```bash
+npm i -g @suzu-sys/notion-eq
+# OR use it via npx (no installation required)
+```
 
 ### Usage
 
@@ -65,9 +66,14 @@ If the equation block contains multiple `\tag{}`s, register the referencing text
 
 #### 3. Run the Tool
 
-```shell
+```bash
+# If installed:
 notion-eq
+# OR use npx
+npx @suzu-sys/notion-eq
 ```
+
+## Example Output
 
 - Before
   <p align="center"><img src="./readme_images/before.png" alt="" width="80%" style="min-width: 500"></p>
