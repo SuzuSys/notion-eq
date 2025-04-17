@@ -69,7 +69,7 @@ If the equation block contains multiple `\tag{}`s, register the referencing text
 ```bash
 # If installed:
 notion-eq
-# OR use npx
+# OR use npx:
 npx @suzu-sys/notion-eq
 ```
 
