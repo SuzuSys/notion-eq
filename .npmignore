@@ -4,9 +4,7 @@ readme_images
 .gitignore/
 src/
 /package-lock.json
-/README.md
 /tsconfig.json
-/LICENSE
 
 # GITIGNORE FIELD ----------------------------------------------
 
