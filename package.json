@@ -1,6 +1,6 @@
 {
   "name": "@suzu-sys/notion-eq",
-  "version": "1.1.11",
+  "version": "1.1.12",
   "description": "An equation numbering tool for Notion",
   "main": "dist/index.js",
   "bin": {
