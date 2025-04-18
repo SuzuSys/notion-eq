@@ -2,6 +2,7 @@
 
 readme_images
 .gitignore/
+.github/
 src/
 /package-lock.json
 /tsconfig.json
